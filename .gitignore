@@ -1,0 +1,10 @@
+*~
+build/
+out/
+.vscode/
+.vs/
+private
+compile_commands.json
+.cache/
+
+.clangd

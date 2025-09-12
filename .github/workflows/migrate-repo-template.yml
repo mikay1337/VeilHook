@@ -1,0 +1,59 @@
+
+name: Migrate Repo Template
+
+on:
+  pull_request:
+  release:
+    types: [published]
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  migrate_repo_template:
+    name: Run Migration
+    runs-on: ubuntu-latest
+    if: github.repository != 'mikay1337/cmake-template'
+    steps:
+
+      - name: Checkout project sources
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Migrate
+        env:
+          GITHUB_REPOSITORY_OLD: "mikay1337/cmake-template"
+          GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+          GITHUB_REPOSITORY_URL: ${{ github.repositoryUrl }}
+        run: |
+
+          # README from template
+          sed -i "s@mikay1337@$GITHUB_REPOSITORY_OWNER@g" README.md
+          sed -i "s@cmake-template@$GITHUB_REPOSITORY_NAME@g" README.md
+          
+          # cleanup this very GitHub Actions workflow yml
+          rm .github/workflows/migrate-repo-template.yml
+
+          # FIXME: remove files listed in removal-list
+          rm -Rf < .github/template/removal-list
+          rm LICENSE
+          rm -Rf .github/template/
+
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git status
+          git commit -m "chore: INITIAL Migrate Repo Template"
+
+      # Push changes 
+      - name: Push changes
+        run: |
+          git push origin main

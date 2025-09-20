@@ -2,7 +2,9 @@ cmake_minimum_required (VERSION 3.30)
 #project(cmake-template-tests LANGUAGES CXX)
 
 set(tests_src
-    test_library.cpp
+    test_utility.cpp
+    test_allocator.cpp
+    test_inline_hook.cpp
 )   
 
 foreach(test_src IN LISTS tests_src)
@@ -11,8 +13,8 @@ foreach(test_src IN LISTS tests_src)
     add_executable(${exename} ${test_src})
     target_link_libraries(${exename}
         PRIVATE 
-            cmake-template
-            Catch2::Catch2WithMain
+            VeilHook
+            snitch::snitch
     )
     set_target_properties(${exename} PROPERTIES
         CXX_STANDARD 23

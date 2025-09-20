@@ -22,15 +22,16 @@ Checks: >-
   -misc-no-recursion,
   -misc-non-private-member-variables-in-classes,
   -misc-unused-alias-decls,
+  -misc-use-internal-linkage
 
 CheckOptions:
   readability-identifier-naming.ClassCase         : CamelCase
   readability-identifier-naming.StructCase        : CamelCase 
   readability-identifier-naming.EnumCase          : CamelCase 
-  readability-identifier-naming.FunctionCase      : CamelCase 
+  #readability-identifier-naming.FunctionCase      : CamelCase 
   readability-identifier-naming.ParameterCase     : lower_case 
   readability-identifier-naming.EnumConstantCase  : CamelCase 
-  readability-identifier-naming.NamespaceCase     : lower_case
+  readability-identifier-naming.NamespaceCase     : CamelCase
   readability-identifier-naming.MemberCase        : lower_case
   readability-identifier-naming.PrivateMemberSuffix : '_'
   readability-identifier-naming.ProtectedMemberSuffix : '_'

@@ -3,3 +3,6 @@ BreakBeforeBraces: Allman
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: All
 AllowShortBlocksOnASingleLine: Always
+
+IfMacros: ['SECTION', 'SNITCH_SECTION']
+SpaceBeforeParens: ControlStatementsExceptControlMacros
